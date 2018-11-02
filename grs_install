@@ -1,0 +1,11 @@
+#!/bin/sh
+echo Enter full version number: e.g. 2.16.3 2.16.0 2.13.3
+read VER
+rm -rf groestlcoin-$VER*
+groestlcoin-cli stop
+sleep 5m
+wget https://github.com/Groestlcoin/groestlcoin/releases/download/v$VER/groestlcoin-$VER-x86_64-linux-gnu.tar.gz
+tar xzf groestlcoin-$VER-x86_64-linux-gnu.tar.gz
+sudo install -m 0755 -o root -g root -t /usr/local/bin groestlcoin-$VER/bin/*
+rm -rf groestlcoin-$VER*
+groestlcoind -daemon
